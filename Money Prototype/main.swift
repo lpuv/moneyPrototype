@@ -36,11 +36,11 @@ func readDate() -> Date {
     let fileURL1 = DocumentDirURL.appendingPathComponent("date").appendingPathExtension("txt")
     if FileManager.default.fileExists(atPath: fileURL1.absoluteString) {
         let startDate = readV(fileURL: fileURL1.absoluteString)
-        return DateFormatter.date(from: startDate)
+        return DateFormatter().date(from: startDate) ?? Date()
     } else {
         FileManager.default.createFile(atPath: fileURL1.absoluteString, contents: "".data(using: String.Encoding.ascii))
         let startDate = Date()
-        return DateFormatter.date(from: startDate)
+        return startDate
     }
 }
 
