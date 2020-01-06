@@ -31,14 +31,16 @@ func readV(fileURL: String) -> String {
     return readString
 }
 
-
-let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-let fileURL1 = DocumentDirURL.appendingPathComponent("date").appendingPathExtension("txt")
-if FileManager.default.fileExists(atPath: fileURL1.absoluteString) {
-    let startDate = readV(fileURL: fileURL1.absoluteString)
-} else {
-    FileManager.default.createFile(atPath: fileURL1.absoluteString, contents: "".data(using: String.Encoding.ascii))
-    let startDate = Date()
+func readDate() -> Date {
+    let DocumentDirURL = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+    let fileURL1 = DocumentDirURL.appendingPathComponent("date").appendingPathExtension("txt")
+    if FileManager.default.fileExists(atPath: fileURL1.absoluteString) {
+        let startDate = readV(fileURL: fileURL1.absoluteString)
+        return DateFormatter.date(from: startDate)
+    } else {
+        FileManager.default.createFile(atPath: fileURL1.absoluteString, contents: "".data(using: String.Encoding.ascii))
+        let startDate = Date()
+        return DateFormatter.date(from: startDate)
+    }
 }
-
 
